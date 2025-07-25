@@ -78,7 +78,7 @@ const Login = ()=>{
                 <input ref={email} type="email" placeholder="Enter your email" className="mx-6 my-2 p-4 w-10/12 border-[0.5px] rounded-l"/>
                 
                 <input ref={password} type="password" placeholder="Enter your password" className="mx-6 my-2 p-4 w-10/12 border-[0.5px] rounded-l"/>
-                <span>Password should contain specail character .</span>
+                <div className="font-bold text-xs text-red-600 text-center">Password contain specail character</div>
                 
                 <button onClick={handlerSubmitButton} className=" bg-red-700 mx-6 my-2 p-2 cursor-pointer w-10/12 border-[0.5px] rounded-l">Submit</button>
                 
