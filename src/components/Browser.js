@@ -1,7 +1,11 @@
+import Header from "./Header";
+
 const Browser =()=>{
 
     return (
-        <div>Thsi is Browser.</div>
+        <div>
+            <Header/>
+        </div>
     )
 }
 

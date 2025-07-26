@@ -1,11 +1,16 @@
-import { LANDING_IMG } from "../utils/constraint";
+import { LANDING_IMG, USER_PHOTO } from "../utils/constraint";
 import { useState ,useRef} from "react";
 import Header from "./Header";
 import checkValid from "../utils/checkValid";
 import { auth } from "../utils/firebase.config";
-import { createUserWithEmailAndPassword ,signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword ,signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = ()=>{
+    const navigate=useNavigate();
+    const dispatch= useDispatch();
 
     const [signStatus, setSignStatus]= useState(true);
 
@@ -25,48 +30,52 @@ const Login = ()=>{
     console.log(password.current.value );
 
         const validate=checkValid(email.current.value ,password.current.value )
-        console.log(validate);
+        // console.log(validate);
         if(validate!==null)return;
         if(!signStatus){
             createUserWithEmailAndPassword(auth, email.current.value ,password.current.value )
                 .then((userCredential) => {
                     // Signed up 
                     const user = userCredential.user;
-                    console.log(user);
-
-                    // ...
+                    updateProfile(user, {
+                        displayName: name.current.value, photoURL: USER_PHOTO
+                        }).then(() => {
+                        // Profile updated!
+                        const {email,displayName,photoURL}=auth.currentUser;
+                        dispatch(addUser({email:email,displayName:displayName,photoURL:photoURL}))
+                        navigate("/browser");
+                        // ...
+                        }).catch((error) => {
+                            console.log(error);
+                        // An error occurred
+                        // ...
+                    });
                 })
                 .catch((error) => {
                    console.log(error);
                 });
-
-             name.current.value="";
-             email.current.value="";
-             password.current.value="";
         }
         else{
             signInWithEmailAndPassword(auth, email.current.value ,password.current.value )
                 .then((userCredential) => {
                     // Signed in 
                     const user = userCredential.user;
-                    console.log(user);
+                    dispatch(addUser({email:user.email,displayName:user.displayName}))
+                    navigate("/browser");
+                    
                 })
                 .catch((error) => {
                     console.log(error);
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
+                   
                 });
 
-                email.current.value="";
-                password.current.value="";
-                // email.current.value="";
-                console.log(email.current.value);
+                
         }
     }
 
     return(
         <div className="">
-            {/* <Header/> */}
+            <Header/>
             <div className="absolute">
                 <img src={LANDING_IMG} alt="Image not found" className="w-screen h-screen object-cover"></img>
             </div>
