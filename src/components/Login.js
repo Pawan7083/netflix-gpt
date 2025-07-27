@@ -4,15 +4,14 @@ import Header from "./Header";
 import checkValid from "../utils/checkValid";
 import { auth } from "../utils/firebase.config";
 import { createUserWithEmailAndPassword ,signInWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
 const Login = ()=>{
-    const navigate=useNavigate();
     const dispatch= useDispatch();
 
     const [signStatus, setSignStatus]= useState(true);
+    const [errorMessage, setErrorMessage]= useState("");
 
     const handleSignStatus= ()=>{
         setSignStatus(!signStatus);
@@ -31,7 +30,10 @@ const Login = ()=>{
 
         const validate=checkValid(email.current.value ,password.current.value )
         // console.log(validate);
-        if(validate!==null)return;
+        if(validate!==null){
+            setErrorMessage(validate);
+            return;
+        }
         if(!signStatus){
             createUserWithEmailAndPassword(auth, email.current.value ,password.current.value )
                 .then((userCredential) => {
@@ -43,7 +45,6 @@ const Login = ()=>{
                         // Profile updated!
                         const {email,displayName,photoURL}=auth.currentUser;
                         dispatch(addUser({email:email,displayName:displayName,photoURL:photoURL}))
-                        navigate("/browser");
                         // ...
                         }).catch((error) => {
                             console.log(error);
@@ -61,7 +62,6 @@ const Login = ()=>{
                     // Signed in 
                     const user = userCredential.user;
                     dispatch(addUser({email:user.email,displayName:user.displayName}))
-                    navigate("/browser");
                     
                 })
                 .catch((error) => {
@@ -87,7 +87,7 @@ const Login = ()=>{
                 <input ref={email} type="email" placeholder="Enter your email" className="mx-6 my-2 p-4 w-10/12 border-[0.5px] rounded-l"/>
                 
                 <input ref={password} type="password" placeholder="Enter your password" className="mx-6 my-2 p-4 w-10/12 border-[0.5px] rounded-l"/>
-                <div className="font-bold text-xs text-red-600 text-center">Password contain specail character</div>
+                <div className="font-bold text-xs text-red-600 text-center">{errorMessage}</div>
                 
                 <button onClick={handlerSubmitButton} className=" bg-red-700 mx-6 my-2 p-2 cursor-pointer w-10/12 border-[0.5px] rounded-l">Submit</button>
                 
