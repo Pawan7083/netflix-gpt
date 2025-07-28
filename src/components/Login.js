@@ -25,9 +25,7 @@ const Login = ()=>{
     // console.log(password );
 
     const handlerSubmitButton =()=>{
-        console.log(email.current.value );
-    console.log(password.current.value );
-
+    
         const validate=checkValid(email.current.value ,password.current.value )
         // console.log(validate);
         if(validate!==null){
@@ -47,6 +45,7 @@ const Login = ()=>{
                         dispatch(addUser({email:email,displayName:displayName,photoURL:photoURL}))
                         // ...
                         }).catch((error) => {
+
                             console.log(error);
                         // An error occurred
                         // ...
@@ -61,11 +60,13 @@ const Login = ()=>{
                 .then((userCredential) => {
                     // Signed in 
                     const user = userCredential.user;
+                    i
                     dispatch(addUser({email:user.email,displayName:user.displayName}))
                     
                 })
                 .catch((error) => {
-                    console.log(error);
+                    setErrorMessage(error.code);
+                    console.log(error.message);
                    
                 });
 
