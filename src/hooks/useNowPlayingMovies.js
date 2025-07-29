@@ -10,7 +10,7 @@ const useNowPlayingMovies = () =>{
         const data=await fetch(NOWPLAYING_MOVIES, API_SECREATE_KEY);
         const json= await data.json();
         dispatch(addNowPlayingMovie({nowPlayingMovies:json?.results}));
-        console.log(json?.results);
+        // console.log(json?.results);
         
     }
     
