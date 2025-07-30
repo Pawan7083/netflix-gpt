@@ -12,7 +12,7 @@ export const TOPRATED_MOVIES="https://api.themoviedb.org/3/movie/top_rated?langu
 
 export const UPCOMING_MOVIES="https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1";
 
-export const POSTER_PATH_URL= "https://image.tmdb.org/t/p/";
+export const POSTER_PATH_URL= "https://image.tmdb.org/t/p/w500";
 
 
 export const API_SECREATE_KEY = {

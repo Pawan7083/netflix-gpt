@@ -10,6 +10,7 @@ const useTopRatedMovies = () =>{
         const data=  await fetch(TOPRATED_MOVIES,API_SECREATE_KEY);
         const jsonData= await data.json();
         dispatch(addTopRatedMovies({topRatedMovies:jsonData?.results}));
+        // console.log(jsonData?.results);
     }
 
     useEffect(()=>{

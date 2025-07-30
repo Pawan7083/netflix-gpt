@@ -9,8 +9,8 @@ import SecondaryComponent from "./SecondaryComponent";
 
 const Browser =()=>{
     useNowPlayingMovies();
-    usePopularMovies();
     useTopRatedMovies();
+    usePopularMovies();
     useUpComingMovies();    
 
     return (
