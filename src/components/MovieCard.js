@@ -5,7 +5,7 @@ const MovieCard = (props) =>{
     // console.log(poster_path);
 
     return (
-        <div className="w-40 h-48 mr-4"> 
+        <div className="w-40 h-48 mr-4 cursor-pointer"> 
             <img src={POSTER_PATH_URL+poster_path} className="w-40 h-48 mr-4" ></img>
         </div>
     )

@@ -4,6 +4,7 @@ import usePopularMovies from "../hooks/usePopularMovies";
 import useTopRatedMovies from "../hooks/useTopRatedMovies";
 import useUpComingMovies from "../hooks/useUpComingMovies";
 import Header from "./Header";
+import MainComponent from "./MainComponent";
 import SecondaryComponent from "./SecondaryComponent";
 
 
@@ -16,6 +17,7 @@ const Browser =()=>{
     return (
         <div>
             <Header/>
+            <MainComponent/>
             <SecondaryComponent/>
         </div>
     )
