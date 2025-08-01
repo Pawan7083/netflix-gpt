@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import Login from "./Login";
 import Browser from "./Browser";
+import GptSearchPage from "./GptSearchPage";
 
 const appRouter = createBrowserRouter(
     [
@@ -11,6 +12,10 @@ const appRouter = createBrowserRouter(
         {
             path:"/browser",
             element:<Browser/>
+        },
+        {
+            path:"/gptSearch",
+            element:<GptSearchPage/>
         }
     ]
 )

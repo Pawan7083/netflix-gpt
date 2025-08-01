@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { LANDING_IMG, LOGO_IMG, USER_PHOTO } from "../utils/constraint";
 import { auth } from "../utils/firebase.config";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
 import { useEffect } from "react";
 import { addUser, removeUser } from "../utils/userSlice";
@@ -44,9 +44,12 @@ const Header = ()=>{
     return (
         <div className="absolute z-50 w-screen bg-gradient-to-b from-black flex justify-between">
             <div>
-                <img src={LOGO_IMG} alt="logo image not found" className="w-48 h-20 "></img>
+                <Link to={"/"}><img src={LOGO_IMG} alt="logo image not found" className="w-48 h-20 "></img></Link>
             </div>
-            {user &&<div className="flex justify-between items-center text-white m-4">
+            {user &&
+
+            <div className="flex justify-between items-center text-white m-4">
+                <Link to={"/gptSearch"}><button className="px-4 py-2 rounded-lg border bg-fuchsia-900 mx-6 cursor-pointer">GPT Search</button></Link>
                 <img src={USER_PHOTO} className="w-12 h-12 rounded"></img>
                 <span className="text-center items-center">{user.displayName}</span>
                 <button onClick={handleSignOut} className="m-2 p-2 border-1 rounded">Logout</button>
